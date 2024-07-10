@@ -7,7 +7,7 @@
  * June 3, 2023
  */
 
-#include <dua_qos/dua_qos.hpp>
+#include <dua_qos_cpp/dua_qos.hpp>
 
 namespace DUAQoS
 {
