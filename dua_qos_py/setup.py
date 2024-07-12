@@ -10,7 +10,7 @@ setup(
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
-        ('share/' + package_name, ['dua_qos_py/dua_qos.py', 'dua_qos_py/dua_qos_visualization.py'])
+        ('share/' + package_name, ['dua_qos_py/dua_qos_reliable.py', 'dua_qos_py/dua_qos_besteffort.py'])
     ],
     install_requires=['setuptools'],
     zip_safe=True,
