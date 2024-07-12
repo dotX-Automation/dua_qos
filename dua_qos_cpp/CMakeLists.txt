@@ -24,15 +24,14 @@ find_package(rcl_action REQUIRED)
 find_package(rclcpp REQUIRED)
 
 # dua_qos_cpp library configuration
-add_library(duaqoscpp SHARED
+add_library(duaqos SHARED
   src/dua_qos.cpp)
-target_compile_features(duaqoscpp PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
-target_compile_definitions(duaqoscpp PRIVATE "DUA_QOS_BUILDING_LIBRARY")
-target_include_directories(duaqoscpp PUBLIC
+target_compile_features(duaqos PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
+target_compile_definitions(duaqos PRIVATE "DUA_QOS_BUILDING_LIBRARY")
+target_include_directories(duaqos PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
-ament_target_dependencies(
-  duaqoscpp
+ament_target_dependencies(duaqos
   rcl_action
   rclcpp)
 
@@ -41,7 +40,7 @@ install(
   DIRECTORY include/
   DESTINATION include)
 install(
-  TARGETS duaqoscpp
+  TARGETS duaqos
   EXPORT dua_qos_cppTargets
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib

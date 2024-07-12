@@ -1,72 +1,31 @@
 /**
  * Implementation of reference QoS profile getters for DUA modules.
  *
- * Roberto Masocco <robmasocco@gmail.com>
- * Intelligent Systems Lab <isl.torvergata@gmail.com>
+ * Roberto Masocco <r.masocco@dotxautomation.com>
  *
  * June 3, 2023
  */
 
+/**
+ * Copyright 2024 dotX Automation s.r.l.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 #include <dua_qos_cpp/dua_qos.hpp>
 
-namespace DUAQoS
+namespace dua_qos
 {
-
-/**
- * @brief Returns the QoS profile for regular data topics.
- *
- * @param depth The depth of the QoS profile.
- * @return The QoS profile.
- */
-rclcpp::QoS get_datum_qos(uint depth)
-{
-  rclcpp::QoS qos = rclcpp::QoS(rclcpp::KeepLast(depth));
-  qos.reliable();
-  qos.durability_volatile();
-  return qos;
-}
-
-/**
- * @brief Returns the QoS profile for command topics.
- *
- * @param depth The depth of the QoS profile.
- * @return The QoS profile.
- */
-rclcpp::QoS get_command_qos(uint depth)
-{
-  rclcpp::QoS qos = rclcpp::QoS(rclcpp::KeepLast(depth));
-  qos.reliable();
-  qos.durability_volatile();
-  return qos;
-}
-
-/**
- * @brief Returns the QoS profile for scan topics, like pointclouds or laser scans.
- *
- * @param depth The depth of the QoS profile.
- * @return The QoS profile.
- */
-rclcpp::QoS get_scan_qos(uint depth)
-{
-  rclcpp::QoS qos = rclcpp::QoS(rclcpp::KeepLast(depth));
-  qos.reliable();
-  qos.durability_volatile();
-  return qos;
-}
-
-/**
- * @brief Returns the QoS profile for image topics.
- *
- * @param depth The depth of the QoS profile.
- * @return The QoS profile.
- */
-rclcpp::QoS get_image_qos(uint depth)
-{
-  rclcpp::QoS qos = rclcpp::QoS(rclcpp::KeepLast(depth));
-  qos.reliable();
-  qos.durability_volatile();
-  return qos;
-}
 
 /**
  * @brief Returns the default settings for action servers.
@@ -110,39 +69,70 @@ rcl_action_client_options_t get_action_client_options()
   return options;
 }
 
-namespace Visualization
+namespace Reliable
 {
 
 /**
- * @brief Returns the QoS profile for regular data topics intended for visualization.
+ * @brief Returns the QoS profile for regular data topics.
+ *
+ * @return The QoS profile.
+ */
+rclcpp::QoS get_datum_qos()
+{
+  rclcpp::QoS qos = rclcpp::QoS(rclcpp::KeepAll());
+  qos.reliable();
+  qos.durability_volatile();
+  return qos;
+}
+
+/**
+ * @brief Returns the QoS profile for scan topics, like pointclouds or laser scans.
  *
  * @param depth The depth of the QoS profile.
  * @return The QoS profile.
  */
-rclcpp::QoS get_datum_qos(uint depth)
+rclcpp::QoS get_scan_qos(uint depth)
 {
   rclcpp::QoS qos = rclcpp::QoS(rclcpp::KeepLast(depth));
+  qos.reliable();
+  qos.durability_volatile();
+  return qos;
+}
+
+/**
+ * @brief Returns the QoS profile for image topics.
+ *
+ * @param depth The depth of the QoS profile.
+ * @return The QoS profile.
+ */
+rclcpp::QoS get_image_qos(uint depth)
+{
+  rclcpp::QoS qos = rclcpp::QoS(rclcpp::KeepLast(depth));
+  qos.reliable();
+  qos.durability_volatile();
+  return qos;
+}
+
+} // namespace Reliable
+
+namespace BestEffort
+{
+
+/**
+ * @brief Returns the QoS profile for regular data topics.
+ *
+ * @return The QoS profile.
+ */
+rclcpp::QoS get_datum_qos()
+{
+  rclcpp::QoS qos = rclcpp::QoS(rclcpp::KeepAll());
   qos.best_effort();
   qos.durability_volatile();
   return qos;
 }
 
 /**
- * @brief Returns the QoS profile for command topics intended for visualization.
- *
- * @param depth The depth of the QoS profile.
- * @return The QoS profile.
- */
-rclcpp::QoS get_command_qos(uint depth)
-{
-  rclcpp::QoS qos = rclcpp::QoS(rclcpp::KeepLast(depth));
-  qos.best_effort();
-  qos.durability_volatile();
-  return qos;
-}
-
-/**
- * @brief Returns the QoS profile for scan topics intended for visualization.
+ * @brief Returns the QoS profile for scan topics, like pointclouds or laser scans.
  *
  * @param depth The depth of the QoS profile.
  * @return The QoS profile.
@@ -156,7 +146,7 @@ rclcpp::QoS get_scan_qos(uint depth)
 }
 
 /**
- * @brief Returns the QoS profile for image topics intended for visualization.
+ * @brief Returns the QoS profile for image topics.
  *
  * @param depth The depth of the QoS profile.
  * @return The QoS profile.
@@ -169,20 +159,6 @@ rclcpp::QoS get_image_qos(uint depth)
   return qos;
 }
 
-/**
- * @brief Returns the QoS profile for marker topics intended for visualization.
- *
- * @param depth The depth of the QoS profile.
- * @return The QoS profile.
- */
-rclcpp::QoS get_marker_qos(uint depth)
-{
-  rclcpp::QoS qos = rclcpp::QoS(rclcpp::KeepLast(depth));
-  qos.best_effort();
-  qos.durability_volatile();
-  return qos;
-}
+} // namespace BestEffort
 
-} // namespace Visualization
-
-} // namespace DUAQoS
+} // namespace dua_qos
