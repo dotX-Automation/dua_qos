@@ -55,7 +55,7 @@ namespace Reliable
  *
  * @return The QoS profile.
  */
-rclcpp::QoS DUA_QOS_PUBLIC get_datum_qos();
+rclcpp::QoS DUA_QOS_PUBLIC get_datum_qos(uint depth = 10);
 
 /**
  * @brief Returns the QoS profile for scan topics, like pointclouds or laser scans.
@@ -83,7 +83,7 @@ namespace BestEffort
  *
  * @return The QoS profile.
  */
-rclcpp::QoS DUA_QOS_PUBLIC get_datum_qos();
+rclcpp::QoS DUA_QOS_PUBLIC get_datum_qos(uint depth = 10);
 
 /**
  * @brief Returns the QoS profile for scan topics, like pointclouds or laser scans.

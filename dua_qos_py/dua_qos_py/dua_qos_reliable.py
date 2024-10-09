@@ -27,14 +27,15 @@ from typing import TypeVar
 QoSProfile = TypeVar('QoSProfile')
 
 
-def get_datum_qos() -> QoSProfile:
+def get_datum_qos(depth: int = 10) -> QoSProfile:
     """
     Returns the QoS profile for regular data topics.
 
     :returns: The QoS profile.
     """
     return rclpy.qos.QoSProfile(
-        history=rclpy.qos.HistoryPolicy.KEEP_ALL,
+        depth=depth,
+        history=rclpy.qos.HistoryPolicy.KEEP_LAST,
         reliability=rclpy.qos.ReliabilityPolicy.RELIABLE,
         durability=rclpy.qos.DurabilityPolicy.VOLATILE)
 

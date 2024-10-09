@@ -77,9 +77,9 @@ namespace Reliable
  *
  * @return The QoS profile.
  */
-rclcpp::QoS get_datum_qos()
+rclcpp::QoS get_datum_qos(uint depth)
 {
-  rclcpp::QoS qos = rclcpp::QoS(rclcpp::KeepAll());
+  rclcpp::QoS qos = rclcpp::QoS(rclcpp::KeepLast(depth));
   qos.reliable();
   qos.durability_volatile();
   return qos;
@@ -123,9 +123,9 @@ namespace BestEffort
  *
  * @return The QoS profile.
  */
-rclcpp::QoS get_datum_qos()
+rclcpp::QoS get_datum_qos(uint depth)
 {
-  rclcpp::QoS qos = rclcpp::QoS(rclcpp::KeepAll());
+  rclcpp::QoS qos = rclcpp::QoS(rclcpp::KeepLast(depth));
   qos.best_effort();
   qos.durability_volatile();
   return qos;
