@@ -11,7 +11,7 @@ Topics are divided into two categories, which correspond to the two main types o
 - **Reliable**, which are critical for the correct functioning of the system and are intended to be used for the transmission of data. They correspond to the `dua_qos::Reliable` namespace.
 - **Best-effort**, which are not critical at all and are only intended to be used for inspection purposes, *e.g.*, by external visualization tools such as RViz 2. They correspond to the `dua_qos::BestEffort` namespace.
 
-The contents of each namespace are described below. Some getters take an additional argument which is the *depth* of the QoS profile with a `KeepLast` policy, *i.e.*, the maximum number of samples that can be stored in the history of the topic. This is useful to avoid memory leaks in case of a slow consumer, but it is not always necessary to set it to a value greater than 1. There are default values, which are suggested in most situations. `datum` profiles always have a `KeepAll` policy, since an additional layer of buffering subject to drops or blocks is not required.
+The contents of each namespace are described below. Getters take an argument which is the *depth* of the QoS profile for its `KeepLast` History policy, *i.e.*, the maximum number of samples that can be stored in the history of the topic. This is necessary to avoid congestion in case of a slow consumer and/or of a lossy network, but it is not always necessary to set it to a value greater than 1. There are default values, which are suggested in most situations. For these same reasons, the `KeepAll` History policy is not used since it can cause serious congestion issues in a real, distributed robot network.
 
 ### `dua_qos`
 
