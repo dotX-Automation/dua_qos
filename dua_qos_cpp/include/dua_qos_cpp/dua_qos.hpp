@@ -103,6 +103,18 @@ rclcpp::QoS DUA_QOS_PUBLIC get_image_qos(uint depth = 1);
 
 } // namespace BestEffort
 
+namespace Persistent
+{
+
+/**
+ * @brief Returns the QoS profile for regular data topics.
+ *
+ * @return The QoS profile.
+ */
+rclcpp::QoS DUA_QOS_PUBLIC get_datum_qos(uint depth = 20);
+
+} // namespace Persistent
+
 } // namespace dua_qos
 
 #endif // DUA_QOS_CPP__DUA_QOS_HPP_

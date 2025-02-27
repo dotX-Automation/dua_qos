@@ -27,11 +27,6 @@
 namespace dua_qos
 {
 
-/**
- * @brief Returns the default settings for action servers.
- *
- * @return Action server options structure.
- */
 rcl_action_server_options_t get_action_server_options()
 {
   rcl_action_server_options_t options{};
@@ -48,11 +43,6 @@ rcl_action_server_options_t get_action_server_options()
   return options;
 }
 
-/**
- * @brief Returns the default settings for action clients.
- *
- * @return Action server options structure.
- */
 rcl_action_client_options_t get_action_client_options()
 {
   rcl_action_client_options_t options{};
@@ -72,11 +62,6 @@ rcl_action_client_options_t get_action_client_options()
 namespace Reliable
 {
 
-/**
- * @brief Returns the QoS profile for regular data topics.
- *
- * @return The QoS profile.
- */
 rclcpp::QoS get_datum_qos(uint depth)
 {
   rclcpp::QoS qos = rclcpp::QoS(rclcpp::KeepLast(depth));
@@ -85,12 +70,6 @@ rclcpp::QoS get_datum_qos(uint depth)
   return qos;
 }
 
-/**
- * @brief Returns the QoS profile for scan topics, like pointclouds or laser scans.
- *
- * @param depth The depth of the QoS profile.
- * @return The QoS profile.
- */
 rclcpp::QoS get_scan_qos(uint depth)
 {
   rclcpp::QoS qos = rclcpp::QoS(rclcpp::KeepLast(depth));
@@ -99,12 +78,6 @@ rclcpp::QoS get_scan_qos(uint depth)
   return qos;
 }
 
-/**
- * @brief Returns the QoS profile for image topics.
- *
- * @param depth The depth of the QoS profile.
- * @return The QoS profile.
- */
 rclcpp::QoS get_image_qos(uint depth)
 {
   rclcpp::QoS qos = rclcpp::QoS(rclcpp::KeepLast(depth));
@@ -118,11 +91,6 @@ rclcpp::QoS get_image_qos(uint depth)
 namespace BestEffort
 {
 
-/**
- * @brief Returns the QoS profile for regular data topics.
- *
- * @return The QoS profile.
- */
 rclcpp::QoS get_datum_qos(uint depth)
 {
   rclcpp::QoS qos = rclcpp::QoS(rclcpp::KeepLast(depth));
@@ -131,12 +99,6 @@ rclcpp::QoS get_datum_qos(uint depth)
   return qos;
 }
 
-/**
- * @brief Returns the QoS profile for scan topics, like pointclouds or laser scans.
- *
- * @param depth The depth of the QoS profile.
- * @return The QoS profile.
- */
 rclcpp::QoS get_scan_qos(uint depth)
 {
   rclcpp::QoS qos = rclcpp::QoS(rclcpp::KeepLast(depth));
@@ -145,12 +107,6 @@ rclcpp::QoS get_scan_qos(uint depth)
   return qos;
 }
 
-/**
- * @brief Returns the QoS profile for image topics.
- *
- * @param depth The depth of the QoS profile.
- * @return The QoS profile.
- */
 rclcpp::QoS get_image_qos(uint depth)
 {
   rclcpp::QoS qos = rclcpp::QoS(rclcpp::KeepLast(depth));
@@ -160,5 +116,18 @@ rclcpp::QoS get_image_qos(uint depth)
 }
 
 } // namespace BestEffort
+
+namespace Persistent
+{
+
+rclcpp::QoS get_datum_qos(uint depth)
+{
+  rclcpp::QoS qos = rclcpp::QoS(rclcpp::KeepLast(depth));
+  qos.reliable();
+  qos.durability(rclcpp::DurabilityPolicy::TransientLocal);
+  return qos;
+}
+
+} // namespace Persistent
 
 } // namespace dua_qos

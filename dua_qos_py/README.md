@@ -11,6 +11,8 @@ Topics are divided into two categories, which correspond to the two main types o
 - **Reliable**, which are critical for the correct functioning of the system and are intended to be used for the transmission of data. They correspond to the `dua_qos_reliable` module.
 - **Best-effort**, which are not critical at all and are only intended to be used for inspection purposes, *e.g.*, by external visualization tools such as RViz 2. They correspond to the `dua_qos_besteffort` module.
 
+Then, a third category is identified, which is the one of **persistent topics**. These topics transmit information that is usually identified with system state, history, and anything else that a subsystem coming up later might require to properly initialize. They correspond to the `dua_qos_persistent` module and are intended to be used for the transmission of small, conventional data packets only. Their functioning is based on the `KeepLast` History policy, the `Reliable` reliability policy, and the `TransientLocal` durability policy.
+
 The contents of each module are described below. Getters take an argument which is the *depth* of the QoS profile for its `KeepLast` History policy, *i.e.*, the maximum number of samples that can be stored in the history of the topic. This is necessary to avoid congestion in case of a slow consumer and/or of a lossy network, but it is not always necessary to set it to a value greater than 1. There are default values, which are suggested in most situations. For these same reasons, the `KeepAll` History policy is not used since it can cause serious congestion issues in a real, distributed robot network.
 
 ### `dua_qos_reliable` and `dua_qos_besteffort`
@@ -18,6 +20,10 @@ The contents of each module are described below. Getters take an argument which 
 - `get_datum_qos`: Returns a QoS profile for a data topic that is critical for the correct functioning of the system.
 - `get_scan_qos`: Returns a QoS profile for a spatial scan topic, *e.g.*, laser scan, pointcloud, or map, with a low depth because of their potential size.
 - `get_image_qos`: Returns a QoS profile for an image topic, *e.g.*, camera image, with a configurable depth; reliable transmission of large messages such as images is very bandwidth-intensive and could clog a DDS network over a lossy link (*i.e.*, WiFi), so use this with care.
+
+#### `dua_qos_persistent`
+
+- `get_datum_qos`: Returns a QoS profile for a data topic that is critical for the correct functioning of the system and/or whose information must be retained for a long time.
 
 ---
 
