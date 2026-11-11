@@ -22,14 +22,20 @@
  * limitations under the License.
  */
 
+#include <rcutils/time.h>
+
 #include <dua_qos_cpp/dua_qos.hpp>
 
 namespace dua_qos
 {
 
-rcl_action_server_options_t get_action_server_options()
+rcl_action_server_options_t get_action_server_options(int result_timeout_s)
 {
-  return rcl_action_server_get_default_options();
+  rcl_action_server_options_t opts = rcl_action_server_get_default_options();
+  if (result_timeout_s > 0) {
+    opts.result_timeout.nanoseconds = RCUTILS_S_TO_NS(result_timeout_s);
+  }
+  return opts;
 }
 
 rcl_action_client_options_t get_action_client_options()

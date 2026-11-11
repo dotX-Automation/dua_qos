@@ -34,11 +34,12 @@ namespace dua_qos
 {
 
 /**
- * @brief Returns the default settings for action servers.
+ * @brief Returns the default settings for action servers, optionally overriding the result timeout.
  *
+ * @param result_timeout_s Time up to which the result is kept stored by the server [s]; <= 0 sets API default.
  * @return Action server options structure.
  */
-rcl_action_server_options_t DUA_QOS_PUBLIC get_action_server_options();
+rcl_action_server_options_t DUA_QOS_PUBLIC get_action_server_options(int result_timeout_s = 0);
 
 /**
  * @brief Returns the default settings for action clients.
