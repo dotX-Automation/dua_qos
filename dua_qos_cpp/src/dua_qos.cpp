@@ -29,34 +29,12 @@ namespace dua_qos
 
 rcl_action_server_options_t get_action_server_options()
 {
-  rcl_action_server_options_t options{};
-  rmw_qos_profile_t status_qos = rmw_qos_profile_default;
-  status_qos.durability = RMW_QOS_POLICY_DURABILITY_TRANSIENT_LOCAL;
-
-  options.allocator = rcl_get_default_allocator();
-  options.goal_service_qos = rmw_qos_profile_services_default;
-  options.cancel_service_qos = rmw_qos_profile_services_default;
-  options.result_service_qos = rmw_qos_profile_services_default;
-  options.feedback_topic_qos = rmw_qos_profile_default;
-  options.status_topic_qos = status_qos;
-
-  return options;
+  return rcl_action_server_get_default_options();
 }
 
 rcl_action_client_options_t get_action_client_options()
 {
-  rcl_action_client_options_t options{};
-  rmw_qos_profile_t status_qos = rmw_qos_profile_default;
-  status_qos.durability = RMW_QOS_POLICY_DURABILITY_TRANSIENT_LOCAL;
-
-  options.allocator = rcl_get_default_allocator();
-  options.goal_service_qos = rmw_qos_profile_services_default;
-  options.cancel_service_qos = rmw_qos_profile_services_default;
-  options.result_service_qos = rmw_qos_profile_services_default;
-  options.feedback_topic_qos = rmw_qos_profile_default;
-  options.status_topic_qos = status_qos;
-
-  return options;
+  return rcl_action_client_get_default_options();
 }
 
 namespace Reliable
